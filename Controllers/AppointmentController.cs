@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BeautyWebAPI.Data.Interfaces;
+using BeautyWebAPI.Data.Repositories;
 using BeautyWebAPI.DTOs;
 using BeautyWebAPI.Models;
 using BeautyWebAPI.ModelsHelper;
@@ -94,9 +95,31 @@ namespace BeautyWebAPI.Controllers
                     appointwithlabel.TitleSize = _beautyBaseRepos.SizeRepository.GetSizeById(appoint.IdSizeAppoint).TitleSize;
                     appointwithlabel.TitleExtrat = _beautyBaseRepos.ExtratRepository.GetExtratById(appoint.IDLenghtAppoint).TitleExtrat;
 
+                    switch (appointwithlabel.Typeservice)
+                    {
+                        case 'F':
+                            appointwithlabel.ServiceTitle = "Full Service";
+                            break;
+                        case 'T':
+                            appointwithlabel.ServiceTitle = "Touch Up";
+                            break;
+                        default:
+                            break;
+                    }
 
+                    switch (appointwithlabel.AddTakeOffAppoint)
+                    {
+                        case true:
+                            appointwithlabel.TakeDownTitle = "Yes";
+                            break;
+                        case false:
+                            appointwithlabel.TakeDownTitle = "No";
+                            break;
+                        default:
+                            break;
+                    }
                     allClientAppoint.Add(appointwithlabel);
-                    Console.WriteLine(appointwithlabel);
+                    //Console.WriteLine(appointwithlabel);
                 }
             }
 
@@ -108,12 +131,11 @@ namespace BeautyWebAPI.Controllers
 
         //[HttpGet("byidappointstateanddates/{stateAppoint}/{dateBeginSearch}/{dataEndSearch}")]
         //public ActionResult<IEnumerable<AppointWithLibel>> LoadAllAppointmentByAppointStateAndDates(char stateAppoint, DateTime dateBeginSearch, DateTime dataEndSearch)
-        [HttpGet("byappointstateanddates/{stateAppoint}")]
+        [HttpGet("byappointstateanddate/{stateAppoint}")]
         public ActionResult<IEnumerable<AppointWithLibel>> LoadAllAppointmentByAppointStateAndDates(char stateAppoint)
         {
             try
             {
-
                 //var listAllAppoint = _beautyBaseRepos.AppointmentRepository.GetAppointmentByStateAppointAndDates(stateAppoint, dateBeginSearch, dataEndSearch);
                 var listAllAppoint = _beautyBaseRepos.AppointmentRepository.GetAppointmentByStateAppointAndDates(stateAppoint);
 
@@ -138,6 +160,30 @@ namespace BeautyWebAPI.Controllers
                         appointwithlabel.Typeservice = appoint.Typeservice;
                         appointwithlabel.DateAppoint = appoint.DateAppoint;
 
+                        switch (appointwithlabel.Typeservice)
+                        {
+                            case 'F':
+                                appointwithlabel.ServiceTitle = "Full Service";
+                                break;
+                            case 'T':
+                                appointwithlabel.ServiceTitle = "Touch Up";
+                                break;
+                            default:
+                                break;
+                        }
+
+                        switch (appointwithlabel.AddTakeOffAppoint)
+                        {
+                            case true:
+                                appointwithlabel.TakeDownTitle = "Yes";
+                                break;
+                            case false:
+                                appointwithlabel.TakeDownTitle = "No";
+                                break;
+                            default:
+                                break;
+                        }
+
                         if (appoint.IDStyleAppoint > 0)
                         {
                             appointwithlabel.DesigStyle = _beautyBaseRepos.StyleRepository.GetStyleById(appoint.IDStyleAppoint).DesigStyle;
@@ -153,11 +199,16 @@ namespace BeautyWebAPI.Controllers
                             appointwithlabel.TitleExtrat = _beautyBaseRepos.ExtratRepository.GetExtratById(appoint.IDLenghtAppoint).TitleExtrat;
                         }
 
-
+                        //Find Client Full name
                         Client aClient = new Client();
-                        
                         aClient = _beautyBaseRepos.ClientRepository.GetClientById(appoint.IDClientAppoint);
                         appointwithlabel.ClientFullName = aClient.FnameClient + " " + aClient.LnameClient;
+
+                        //Find the cost
+                        FindBraidingCost findBraidingCost = new FindBraidingCost(_beautyBaseRepos);
+                        appointwithlabel.TotalCostBraiding = (double)findBraidingCost.GetBraidingCost(appointwithlabel.IDStyleAppoint, appointwithlabel.IdSizeAppoint, appointwithlabel.IDLenghtAppoint, appointwithlabel.Typeservice, appointwithlabel.AddTakeOffAppoint, "TOTALCOST");
+
+                        Console.WriteLine("Appoint num "+ appointwithlabel.IDAppoint + " - " + appointwithlabel.TotalCostBraiding);
 
                         allClientAppoint.Add(appointwithlabel);
                     }

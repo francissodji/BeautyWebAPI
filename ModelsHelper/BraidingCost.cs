@@ -29,6 +29,9 @@ namespace BeautyWebAPI.ModelsHelper
 
         public double ESCostHairDeductExtra { get; set; }
 
+        public double TotalTouchUpCost { get; set; }
+
+        public double TotalExtraSizeLengthCost { get; set; }
         public double TotalCost { get; set; }
     }
 }

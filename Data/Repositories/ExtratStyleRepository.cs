@@ -35,6 +35,7 @@ namespace BeautyWebAPI.Data.Repositories
         }
 
 
+
         
         public IEnumerable<ExtratStyle> GetAllExtratPrices(int IdStyle, int IdSize, int IdExtrat)
         {
@@ -43,12 +44,11 @@ namespace BeautyWebAPI.Data.Repositories
                                 "@IdSize = " + IdSize + ", " +
                                 "@IdExtrat = " + IdExtrat;
 
-
             return _context.ExtratStyles.FromSqlRaw(storedProc).ToList();
         }
+
+
         
-
-
 
         /*
         public IEnumerable<ExtratStyle> GetAllSizeByStyle(int IdStyle)

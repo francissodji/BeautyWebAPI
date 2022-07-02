@@ -23,6 +23,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using BeautyWebAPI.Services.PasswordHasher;
 using BeautyWebAPI.Services.TokenGenrator;
+using BeautyWebAPI.Services.DatabaseManagement;
 
 namespace BeautyWebAPI
 {
@@ -40,7 +41,8 @@ namespace BeautyWebAPI
         {
             //Entity Framework
             services.AddDbContext<BeautyDataContext>(opt => opt.UseSqlServer
-                (Configuration.GetConnectionString("BeautyConnection"))); //added 12/29/2021
+                (Configuration.GetConnectionString("BeautyConnection"))); //added 12/29/2021 - Get the Connection
+
 
 
             //Microsoft Authentication
@@ -118,6 +120,9 @@ namespace BeautyWebAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            DatabaseManagementService.MigrationInitialisation(app); // Add 6/14/2022 - Initilize migration on the DB
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

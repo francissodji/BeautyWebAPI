@@ -43,6 +43,11 @@ namespace BeautyWebAPI.Models
 
         public string ClientFullName { get; set; }
 
+        public string ServiceTitle { get; set; }
+
+        public string TakeDownTitle { get; set; }
+
+        public double TotalCostBraiding { get; set; }
 
     }
 }
