@@ -9,13 +9,14 @@ namespace BeautyWebAPI.DTOs
     public class UserCreateDto
     {
 
+
 		[Required]
 		[EmailAddress]
 		public string Email { get; set; }
 
 
 		[Required]
-		[MinLength(8)]
+		[MinLength(5)]
 		public string Username { get; set; }
 
 
@@ -23,12 +24,15 @@ namespace BeautyWebAPI.DTOs
 		public string PasswordHash { get; set; }
 
 
-		public DateTime Dateuserexpire { get; set; }
+		public DateTime? Dateuserexpire { get; set; }
 
 
-		public bool Connectstate { get; set; }
+		public bool? Connectstate { get; set; }
 
 
 		public int IdProfil { get; set; }
+
+
+		public string? TokenUser { get; set; }
 	}
 }

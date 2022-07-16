@@ -11,7 +11,10 @@ namespace BeautyWebAPI.Models
 
         public int IdClientBraider { get; set; }
 
-        public string NameClientBraider { get; set; }
+        public string FirstNClientBraider { get; set; }
+        public string MiddleNClientBraider { get; set; }
+
+        public string LastNClientBraider { get; set; }
 
         public string AccessTocken { get; set; }
 

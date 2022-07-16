@@ -27,7 +27,8 @@ namespace BeautyWebAPI.Data.Interfaces
 
         IStateRepository StateRepository { get; }
 
-        
+
+
 
         bool SaveChanges();
 

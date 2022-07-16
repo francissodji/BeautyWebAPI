@@ -18,7 +18,7 @@ namespace BeautyWebAPI.Models
 
 
 		[Required]
-		[MinLength(8)]
+		[MinLength(5)]
 		public string Username { get; set; }
 
 
@@ -26,13 +26,17 @@ namespace BeautyWebAPI.Models
 		public string PasswordHash { get; set; }
 
 		
-		public DateTime Dateuserexpire { get; set; }
+		public DateTime? Dateuserexpire { get; set; }
 
 
-		public bool Connectstate { get; set; }
+		public bool? Connectstate { get; set; }
 
 
 		public int IdProfil { get; set; }
+
+
+		public string? TokenUser { get; set; }
+
 
 		public List<Client> Clients { get; set; }
 

@@ -4,14 +4,16 @@ using BeautyWebAPI.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BeautyWebAPI.Migrations
 {
     [DbContext(typeof(BeautyDataContext))]
-    partial class BeautyDataContextModelSnapshot : ModelSnapshot
+    [Migration("20220710164251_Migrat07102022")]
+    partial class Migrat07102022
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

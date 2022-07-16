@@ -37,8 +37,27 @@ namespace BeautyWebAPI.Controllers
         }
 
 
+        //POST  api/users
+        [HttpPost]
+        public ActionResult<ClientReadDto> CreateClient(ClientCreateDto clientCreateDto)
+        {
+
+
+            // Create client
+            clientCreateDto.IDUser = 2;//direct connect to fake id user client
+            var clientModel = _mapper.Map<Client>(clientCreateDto);
+            _beautyBaseRepos.ClientRepository.CreateClient(clientModel);
+            _beautyBaseRepos.SaveChanges();
+
+            var clientReadDto = _mapper.Map<ClientReadDto>(clientModel);
+
+            return CreatedAtRoute(nameof(LoadClientById), new { Id = clientReadDto.IDClient }, clientReadDto);
+            //return Ok(colorReadDto);
+        }
+
+
         //GET api/client/2
-        
+
         [HttpGet("{id}", Name = "LoadClientById")]
         //[Route("loadbyId")]
         public ActionResult<ClientReadDto> LoadClientById(int id)
@@ -106,20 +125,7 @@ namespace BeautyWebAPI.Controllers
 
 
         
-        //POST  api/users
-        [HttpPost]
-        public ActionResult<ClientReadDto> CreateClient(ClientCreateDto clientCreateDto)
-        {
-            clientCreateDto.IDUser = 2;//direct connect to fake id user client
-            var clientModel = _mapper.Map<Client>(clientCreateDto);
-            _beautyBaseRepos.ClientRepository.CreateClient(clientModel);
-            _beautyBaseRepos.SaveChanges();
-
-            var clientReadDto = _mapper.Map<ClientReadDto>(clientModel);
-
-            return CreatedAtRoute(nameof(LoadClientById), new { Id = clientReadDto.IDClient }, clientReadDto);
-            //return Ok(colorReadDto);
-        }
+        
 
 
 

@@ -100,6 +100,8 @@ namespace BeautyWebAPI.Controllers
             //registration of user - Create New User
             string hashedPassword = _passwordHasher.HashPassword(register.Password); //convert to a hash
 
+
+
             UserCreateDto userCreatedDto = new UserCreateDto 
             {
                 Email = register.Email,
@@ -107,6 +109,7 @@ namespace BeautyWebAPI.Controllers
                 PasswordHash = hashedPassword,
                 Dateuserexpire = DateTime.Today,
                 Connectstate = false,
+                //TokenUser = userToken,
                 IdProfil = 3
             };
 
@@ -116,6 +119,8 @@ namespace BeautyWebAPI.Controllers
 
             var userReadDto = _mapper.Map<UserReadDto>(userModel);
 
+            //Create the client
+
             if (userReadDto != null)
             {
                 //***********Add Client
@@ -124,9 +129,10 @@ namespace BeautyWebAPI.Controllers
                     FnameClient = register.FirstName,
                     MnameClient = register.MiddleName,
                     LnameClient = register.LastName,
-                    PhoneClient = register.Phone,
+                    
                     CelClient = register.Cel,
-                    DOBClient = register.DOB,
+                    //PhoneClient = register.Phone,
+                    //DOBClient = register.DOB,
                     SexClient = register.Sex,
                     EmailClient = register.Email,
                     StreetClient = register.Street,
@@ -134,6 +140,7 @@ namespace BeautyWebAPI.Controllers
                     CountyClient = register.County,
                     ZipCodeClient = register.ZipCode,
                     IDUser = userReadDto.IDUser
+
                 };
              
 
@@ -141,8 +148,8 @@ namespace BeautyWebAPI.Controllers
                 await _beautyBaseRepos.ClientRepository.CreateClient(clientAddedModel);
                 _beautyBaseRepos.SaveChanges();//client is created
 
-                //***********************************
             }
+
 
             return CreatedAtRoute(nameof(LoadUserById), new { Id = userReadDto.IDUser }, userReadDto);
         }
@@ -175,42 +182,23 @@ namespace BeautyWebAPI.Controllers
                 return Unauthorized();
             }
 
-            //recherche the user's other information
+            user.TokenUser = _accessTokenGenerator.GenerateToken(user); //generate the token for the connected user
+            user.PasswordHash = "";
 
-            string accessToken = _accessTokenGenerator.GenerateToken(user);
-
-            //Find Client By Username
-            Client client = await _beautyBaseRepos.ClientRepository.GetClientByIdUser(user.IDUser);
-
-
-            //UserAuthentResponse user = new UserAuthentResponse();
-
-            return Ok(new UserAuthentResponse()
-            {
-                AccessTocken = accessToken,
-                //AccessUser = user
-            }); 
-
+            Client client= await _beautyBaseRepos.ClientRepository.GetClientByIdUser(user.IDUser);
+            UserAuthentResponse userAuth = new UserAuthentResponse();
             
-
-            //***
-
-            /*
-            var user = await _beautyBaseRepos.UserRepository.Authenticate(userLoginDto.Username, userLoginDto.Password);
-            
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            var loginRes = new UserResponsDto();
-            loginRes.Username = user.Username;
-            loginRes.Token = "Token to be generated";
+            userAuth.IdUser = user.IDUser;
+            userAuth.IdClientBraider = client.IDClient;
+            userAuth.FirstNClientBraider = client.FnameClient;
+            userAuth.MiddleNClientBraider = client.MnameClient;
+            userAuth.LastNClientBraider = client.LnameClient;
+            userAuth.AccessTocken = user.TokenUser;
 
 
-            return Ok(loginRes);
-            */
+            return Ok(userAuth);
+            //return Ok(user);
+
         }
 
 

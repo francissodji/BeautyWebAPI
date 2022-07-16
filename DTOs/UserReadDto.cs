@@ -10,14 +10,29 @@ namespace BeautyWebAPI.DTOs
     {
 		public int IDUser { get; set; }
 
-		[MaxLength(50)]
+
+		[Required]
+		[EmailAddress]
+		public string Email { get; set; }
+
+
+		[Required]
 		public string Username { get; set; }
 
-		[MaxLength(100)]
+
+		[Required]
+		public string PasswordHash { get; set; }
 
 
-		public bool Connectstate { get; set; }
+		public DateTime? Dateuserexpire { get; set; }
+
+
+		public bool? Connectstate { get; set; }
+
 
 		public int IdProfil { get; set; }
+
+
+		public string? TokenUser { get; set; }
 	}
 }
