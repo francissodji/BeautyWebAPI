@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using BeautyWebAPI.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using BeautyWebAPI.DTOs;
-using BeautyWebAPI.ModelsHelper;
 
 namespace BeautyWebAPI.Data.Repositories
 {
@@ -20,7 +19,7 @@ namespace BeautyWebAPI.Data.Repositories
             _context = context;
         }
 
-
+        /*
         public Task<Appointment> CreateAppointment(Appointment appointment)
         {
             if (appointment == null)
@@ -95,6 +94,6 @@ namespace BeautyWebAPI.Data.Repositories
             _context.Appointments.Update(appointment);
         }
 
-        
+        */
     }
 }

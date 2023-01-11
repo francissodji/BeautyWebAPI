@@ -8,6 +8,7 @@ namespace BeautyWebAPI.Data.Interfaces
 {
     public interface ISizeRepository
     {
+        /*
         IEnumerable<Size> GetAllSize();
 
         IEnumerable<Size> GetAllSizeByStyle(int idStyle);
@@ -20,5 +21,7 @@ namespace BeautyWebAPI.Data.Interfaces
         void UpdateSize(Size size);
 
         void DeleteSize(Size size);
+
+        */
     }
 }

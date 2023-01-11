@@ -16,73 +16,8 @@ namespace BeautyWebAPI.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.13")
+                .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("BeautyWebAPI.Authentication.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
-                });
 
             modelBuilder.Entity("BeautyWebAPI.Models.Appointment", b =>
                 {
@@ -220,7 +155,7 @@ namespace BeautyWebAPI.Migrations
 
                     b.HasIndex("UserIDUser");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("BeautyWebAPI.Models.Color", b =>
@@ -435,35 +370,6 @@ namespace BeautyWebAPI.Migrations
                     b.ToTable("Styles");
                 });
 
-            modelBuilder.Entity("BeautyWebAPI.Models.Theword", b =>
-                {
-                    b.Property<int>("IDPassword")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateBeginPw")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateEndPw")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IDUser")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumConnection")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserPassword")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.HasKey("IDPassword");
-
-                    b.ToTable("Thewords");
-                });
-
             modelBuilder.Entity("BeautyWebAPI.Models.User", b =>
                 {
                     b.Property<int>("IDUser")
@@ -497,138 +403,444 @@ namespace BeautyWebAPI.Migrations
 
                     b.HasKey("IDUser");
 
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.AccountLibrary", b =>
+                {
+                    b.Property<int>("IdAccount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateAddedAccount")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("IdAccount");
+
+                    b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.AssociateLibrary", b =>
+                {
+                    b.Property<int>("IdAssociate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CelAssociate")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<string>("CountyAssociate")
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<DateTime?>("DOBAssociate")
+                        .HasMaxLength(100)
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("DisplayAccontHeaderA")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("EmailAssociate")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FnameAssociate")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<bool?>("IdRegisterAssociate")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsAssociateUseRegister")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LnameAssociate")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("MnameAssociate")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool?>("OwnerStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhoneAssociate")
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<string>("StateAssociate")
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<string>("StreetAssociate")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int?>("UserIdUser")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZipCodeAssociate")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.HasKey("IdAssociate");
+
+                    b.HasIndex("UserIdUser");
+
+                    b.ToTable("Associates");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.ClientLibrary", b =>
+                {
+                    b.Property<int>("IdClient")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CelClient")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<string>("CountyClient")
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<DateTime?>("DOBClient")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmailClient")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FnameClient")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LnameClient")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("MnameClient")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PhoneClient")
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<string>("SexClient")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<string>("StateClient")
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<string>("StreetClient")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int?>("UserIdUser")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZipCodeClient")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.HasKey("IdClient");
+
+                    b.HasIndex("UserIdUser");
+
+                    b.ToTable("Clients");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.CompanyAccountLibrary", b =>
+                {
+                    b.Property<int>("IdCompanyAccount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("AutoRenew")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DateOpened")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdAccount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdCompany")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StateUsed")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("IdCompanyAccount");
+
+                    b.HasIndex("IdAccount");
+
+                    b.HasIndex("IdCompany");
+
+                    b.ToTable("CompaniesAccounts");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.CompanyAssociateLibrary", b =>
+                {
+                    b.Property<int>("IdCompanyBraider")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdAssociate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdCompany")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdCompanyBraider");
+
+                    b.HasIndex("IdAssociate");
+
+                    b.HasIndex("IdCompany");
+
+                    b.ToTable("CompaniesAssociates");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.CompanyClientLibrary", b =>
+                {
+                    b.Property<int>("IdCompanyClient")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdClient")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdCompany")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdCompanyClient");
+
+                    b.HasIndex("IdClient");
+
+                    b.HasIndex("IdCompany");
+
+                    b.ToTable("CompaniesClients");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.CompanyLibrary", b =>
+                {
+                    b.Property<int>("IdComp")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("AcceptPartialPay")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AcronymComp")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<decimal?>("AmountPayPartialPay")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal?>("CostHairDeduct")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal?>("CostTakeDown")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("CountyComp")
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("DateWorkFrid")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("DateWorkMond")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("DateWorkSatu")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("DateWorkSund")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("DateWorkThur")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("DateWorkTues")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("DateWorkWed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("DesignationComp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("EmailComp")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("IdMainRegister")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdOwnerBraider")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MaxBraider")
+                        .HasColumnType("int");
+
+                    b.Property<float?>("PartPayeBraid")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("PercentPayPartialPay")
+                        .HasColumnType("real");
+
+                    b.Property<string>("PhoneOffice")
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<string>("PhoneOwner")
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<string>("StateComp")
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<float?>("StateTaxOnBraiding")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("StateTaxOnSale")
+                        .HasColumnType("real");
+
+                    b.Property<string>("StreetComp")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SubDomaine")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TimeWorkBegin")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("TimeWorkEnd")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("WebsiteComp")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("ZipcodeComp")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.HasKey("IdComp");
+
+                    b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.SubscriptionLibrary", b =>
+                {
+                    b.Property<int>("IdSuscript")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AccountIdAccount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateBeginSouscrip")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateEndSouscrip")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdAccount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PeriodSouscrip")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TypeSuscript")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("IdSuscript");
+
+                    b.HasIndex("AccountIdAccount");
+
+                    b.ToTable("Subscriptions");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.UserLibrary", b =>
+                {
+                    b.Property<int>("IdUser")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("Connectstate")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("Dateuserexpire")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("TokenUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("IdUser");
+
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("BeautyWebAPI.Models.Appointment", b =>
@@ -694,55 +906,88 @@ namespace BeautyWebAPI.Migrations
                     b.Navigation("Style");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("ConnectionLibrary.Models.AssociateLibrary", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ConnectionLibrary.Models.UserLibrary", "User")
+                        .WithMany("Associates")
+                        .HasForeignKey("UserIdUser");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("ConnectionLibrary.Models.ClientLibrary", b =>
                 {
-                    b.HasOne("BeautyWebAPI.Authentication.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ConnectionLibrary.Models.UserLibrary", "User")
+                        .WithMany("Clients")
+                        .HasForeignKey("UserIdUser");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("ConnectionLibrary.Models.CompanyAccountLibrary", b =>
                 {
-                    b.HasOne("BeautyWebAPI.Authentication.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("ConnectionLibrary.Models.AccountLibrary", "Account")
+                        .WithMany("CompanyAccount")
+                        .HasForeignKey("IdAccount")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ConnectionLibrary.Models.CompanyLibrary", "Company")
+                        .WithMany("CompanyAccount")
+                        .HasForeignKey("IdCompany")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("ConnectionLibrary.Models.CompanyAssociateLibrary", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
+                    b.HasOne("ConnectionLibrary.Models.AssociateLibrary", "Associate")
+                        .WithMany("CompanyAssociate")
+                        .HasForeignKey("IdAssociate")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BeautyWebAPI.Authentication.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("ConnectionLibrary.Models.CompanyLibrary", "Company")
+                        .WithMany("CompanyAssociate")
+                        .HasForeignKey("IdCompany")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Associate");
+
+                    b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("ConnectionLibrary.Models.CompanyClientLibrary", b =>
                 {
-                    b.HasOne("BeautyWebAPI.Authentication.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("ConnectionLibrary.Models.ClientLibrary", "Client")
+                        .WithMany("CompanyClient")
+                        .HasForeignKey("IdClient")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ConnectionLibrary.Models.CompanyLibrary", "Company")
+                        .WithMany("CompanyClient")
+                        .HasForeignKey("IdCompany")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.SubscriptionLibrary", b =>
+                {
+                    b.HasOne("ConnectionLibrary.Models.AccountLibrary", "Account")
+                        .WithMany("Suscriptions")
+                        .HasForeignKey("AccountIdAccount");
+
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("BeautyWebAPI.Models.Client", b =>
@@ -773,6 +1018,39 @@ namespace BeautyWebAPI.Migrations
 
             modelBuilder.Entity("BeautyWebAPI.Models.User", b =>
                 {
+                    b.Navigation("Clients");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.AccountLibrary", b =>
+                {
+                    b.Navigation("CompanyAccount");
+
+                    b.Navigation("Suscriptions");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.AssociateLibrary", b =>
+                {
+                    b.Navigation("CompanyAssociate");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.ClientLibrary", b =>
+                {
+                    b.Navigation("CompanyClient");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.CompanyLibrary", b =>
+                {
+                    b.Navigation("CompanyAccount");
+
+                    b.Navigation("CompanyAssociate");
+
+                    b.Navigation("CompanyClient");
+                });
+
+            modelBuilder.Entity("ConnectionLibrary.Models.UserLibrary", b =>
+                {
+                    b.Navigation("Associates");
+
                     b.Navigation("Clients");
                 });
 #pragma warning restore 612, 618

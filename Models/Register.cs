@@ -8,15 +8,15 @@ namespace BeautyWebAPI.Models
 {
     public class Register
     {
-        [Required (ErrorMessage = "Username is required")]
+        [Required(ErrorMessage = "Username is required")]
         [MinLength(8)]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password is required")] 
+        [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Password confirmation is required")]
@@ -24,6 +24,8 @@ namespace BeautyWebAPI.Models
 
 
         //For Client and Braider
+        [MaxLength(30)]
+        public string Role { get; set; }
 
         [Required(ErrorMessage = "First name is required")]
         public string FirstName { get; set; }
@@ -33,6 +35,11 @@ namespace BeautyWebAPI.Models
         [Required(ErrorMessage = "Last name is required")]
         public string LastName { get; set; }
 
+        public bool Connectstate { get; set; }
+
+        public string SubDomaine { get; set; }
+
+        /*
         [Phone]
         public string Phone { get; set; }
 
@@ -53,6 +60,6 @@ namespace BeautyWebAPI.Models
 
         [MaxLength(2)]
         public string State { get; set; }
-
+        */
     }
 }

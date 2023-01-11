@@ -21,12 +21,17 @@ namespace BeautyWebAPI.Controllers
             _mapper = mapper;
         }
 
+        /*
         [HttpGet("disc")]
         public ActionResult<IEnumerable<Discount>> LoadAllDiscount()
         {
+            
             var listAllDiscount = _beautyBaseRepos.DiscountRepository.GetAllDiscount();
 
             return Ok(_mapper.Map<IEnumerable<DiscountReadDto>>(listAllDiscount));
+            
+        
         }
+        */
     }
 }

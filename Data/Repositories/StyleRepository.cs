@@ -17,7 +17,7 @@ namespace BeautyWebAPI.Data.Repositories
             _context = context;
         }
 
-
+        /*
         public void CreateStyle(Style style)
         {
             if (style == null)
@@ -57,5 +57,7 @@ namespace BeautyWebAPI.Data.Repositories
 
             _context.Styles.Update(style);
         }
+
+        */
     }
 }

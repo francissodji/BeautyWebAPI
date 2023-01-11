@@ -18,7 +18,7 @@ namespace BeautyWebAPI.Data.Repositories
             _context = context;
         }
 
-
+        /*
         public IEnumerable<Size> GetAllSize()
         {
             return _context.Sizes.ToList();
@@ -56,6 +56,8 @@ namespace BeautyWebAPI.Data.Repositories
 
             return _context.Sizes.FromSqlRaw(storedProc).ToList();
         }
+
+        */
     }
 
 }

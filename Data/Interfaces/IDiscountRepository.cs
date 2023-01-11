@@ -8,6 +8,7 @@ namespace BeautyWebAPI.Data.Interfaces
 {
     public interface IDiscountRepository
     {
+        /*
         IEnumerable<Discount> GetAllDiscount();
 
         Discount GetDiscountById(int Id);
@@ -17,5 +18,7 @@ namespace BeautyWebAPI.Data.Interfaces
         void UpdateDiscount(Discount discount);
 
         void DeleteDiscount(Discount discount);
+
+        */
     }
 }

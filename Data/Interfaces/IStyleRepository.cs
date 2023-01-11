@@ -8,6 +8,7 @@ namespace BeautyWebAPI.Data.Interfaces
 {
     public interface IStyleRepository
     {
+        /*
         IEnumerable<Style> GetAllStyle();
 
         Style GetStyleById(int id);
@@ -17,5 +18,7 @@ namespace BeautyWebAPI.Data.Interfaces
         void UpdateStyle(Style style);
 
         void DeleteStyle(Style style);
+
+        */
     }
 }

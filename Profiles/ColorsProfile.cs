@@ -10,7 +10,7 @@ namespace BeautyWebAPI.Profiles
 {
     public class ColorsProfile : Profile
     {
-
+        /*
         public ColorsProfile()
         {
             CreateMap<Color, ColorReadDto>();
@@ -21,6 +21,7 @@ namespace BeautyWebAPI.Profiles
 
             CreateMap<Color, ColorUpdateDto>();
         }
+        */
         
     }
 }

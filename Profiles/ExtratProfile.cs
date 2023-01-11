@@ -14,13 +14,15 @@ namespace BeautyWebAPI.Profiles
     {
         public ExtratProfile()
         {
-            CreateMap<Extrat, ExtratReadDto>();
+            /*
+            CreateMap<Length, LengthReadDto>();
 
-            CreateMap<ExtratCreateDto, Color>();
+            CreateMap<LengthCreateDto, Color>();
 
-            CreateMap<ExtratUpdateDto, Color>();
+            CreateMap<LengthUpdateDto, Color>();
 
-            CreateMap<Color, ExtratUpdateDto>();
+            CreateMap<Color, LengthUpdateDto>();
+            */
         }
 
     }

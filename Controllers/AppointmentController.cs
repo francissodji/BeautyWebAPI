@@ -3,7 +3,6 @@ using BeautyWebAPI.Data.Interfaces;
 using BeautyWebAPI.Data.Repositories;
 using BeautyWebAPI.DTOs;
 using BeautyWebAPI.Models;
-using BeautyWebAPI.ModelsHelper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,7 +14,7 @@ namespace BeautyWebAPI.Controllers
 {
     public class AppointmentController : BaseController
     {
-
+        /*
         private readonly IBeautyBaseRepository _beautyBaseRepos;
 
         private IMapper _mapper { get; }
@@ -201,7 +200,7 @@ namespace BeautyWebAPI.Controllers
 
                         //Find Client Full name
                         Client aClient = new Client();
-                        aClient = _beautyBaseRepos.ClientRepository.GetClientById(appoint.IDClientAppoint);
+                        //aClient = _beautyBaseRepos.ClientRepository.GetClientById(appoint.IDClientAppoint);
                         appointwithlabel.ClientFullName = aClient.FnameClient + " " + aClient.LnameClient;
 
                         //Find the cost
@@ -291,5 +290,8 @@ namespace BeautyWebAPI.Controllers
 
             return NoContent();
         }
+    
+        */
     }
+    
 }

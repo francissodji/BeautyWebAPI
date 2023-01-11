@@ -12,14 +12,18 @@ namespace BeautyWebAPI.Models
         public int IdSize { get; set; }
 
         [MaxLength(100)]
-        public string TitleSize { get; set; }
+        public string? TitleSize { get; set; }
+
+        public bool IsDefault { get; set; }
+
+        public int IdCompany { get; set; }
 
 
         //Navigation Property
 
-        public List<ExtratStyle> ExtratStyles { get; set; }
+        //public List<ExtratStyle> ExtratStyles { get; set; }
 
         //To Appointment
-        public List<Appointment> Appointment { get; set; }
+        //public List<Appointment> Appointment { get; set; }
     }
 }

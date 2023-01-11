@@ -12,6 +12,7 @@ namespace BeautyWebAPI.Data.Repositories
     {
         private readonly BeautyDataContext _context;
 
+        /*
         public StateRepository(BeautyDataContext context)
         {
             _context = context;
@@ -21,5 +22,6 @@ namespace BeautyWebAPI.Data.Repositories
         {
             return _context.States.ToList();
         }
+        */
     }
 }

@@ -8,6 +8,7 @@ namespace BeautyWebAPI.Data.Interfaces
 {
     public interface IExtratStyleRepository
     {
+        /*
         IEnumerable<ExtratStyle> GetAllExtratStyle();
 
 
@@ -24,5 +25,7 @@ namespace BeautyWebAPI.Data.Interfaces
         void UpdateExtratStyle(ExtratStyle extratStyle);
 
         void DeleteExtratStyle(ExtratStyle extratStyle);
+
+        */
     }
 }

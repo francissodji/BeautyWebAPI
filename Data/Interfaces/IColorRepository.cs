@@ -8,6 +8,7 @@ namespace BeautyWebAPI.Data.Interfaces
 {
     public interface IColorRepository
     {
+        /*
         IEnumerable<Color> GetAllColor();
 
         Color GetColorById(int id);
@@ -19,6 +20,6 @@ namespace BeautyWebAPI.Data.Interfaces
         void UpdateColor(Color color);
 
         void DeleteColor(Color color);
-
+        */
     }
 }

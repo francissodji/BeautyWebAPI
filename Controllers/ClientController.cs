@@ -1,13 +1,19 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration;
 using BeautyWebAPI.Data.Interfaces;
-using BeautyWebAPI.DTOs;
-using BeautyWebAPI.Models;
+using BookingLibrary.Data;
+using ConnectivityLibrary.Data;
+using ConnectivityLibrary.Dtos;
+using ConnectivityLibrary.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+
+
 
 namespace BeautyWebAPI.Controllers
 {
@@ -15,58 +21,42 @@ namespace BeautyWebAPI.Controllers
     public class ClientController : BaseController
     {
 
-        private readonly IBeautyBaseRepository _beautyBaseRepos;
-
+        private readonly IConnectivityData _connectivityDataRepos;
         private IMapper _mapper { get; }
+        IConfiguration _configuration;
 
-        public ClientController(IBeautyBaseRepository beautyBaseRepos, IMapper mapper)
+        public ClientController(IConnectivityData connectivityDataRepos, IMapper mapper, IConfiguration configuration)
         {
-            _beautyBaseRepos = beautyBaseRepos;
-
+            _connectivityDataRepos = connectivityDataRepos;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
 
 
-        [HttpGet]
-        public ActionResult<IEnumerable<ClientReadDto>> LoadAllClients()
+        [HttpGet("{idCompany}")]
+        public async Task<ActionResult<IEnumerable<ClientLibraryReadDto>>> LoadAllClients(int idCompany)
         {
-            var listAllClient = _beautyBaseRepos.ClientRepository.GetAllClients();
+            string connectionString = _configuration["ConnectionStrings:BeautyConnection"];
+            var listAllClient = await _connectivityDataRepos.GetAllClientsByIdCompany(connectionString, idCompany);
 
-            return Ok(_mapper.Map<IEnumerable<ClientReadDto>>(listAllClient));
-        }
-
-
-        //POST  api/users
-        [HttpPost]
-        public ActionResult<ClientReadDto> CreateClient(ClientCreateDto clientCreateDto)
-        {
-
-
-            // Create client
-            clientCreateDto.IDUser = 2;//direct connect to fake id user client
-            var clientModel = _mapper.Map<Client>(clientCreateDto);
-            _beautyBaseRepos.ClientRepository.CreateClient(clientModel);
-            _beautyBaseRepos.SaveChanges();
-
-            var clientReadDto = _mapper.Map<ClientReadDto>(clientModel);
-
-            return CreatedAtRoute(nameof(LoadClientById), new { Id = clientReadDto.IDClient }, clientReadDto);
-            //return Ok(colorReadDto);
+            return Ok(_mapper.Map<IEnumerable<ClientLibraryReadDto>>(listAllClient));
         }
 
 
         //GET api/client/2
 
-        [HttpGet("{id}", Name = "LoadClientById")]
+        [HttpGet("{idClient}", Name = "LoadClientById")]
         //[Route("loadbyId")]
-        public ActionResult<ClientReadDto> LoadClientById(int id)
+        public async Task<ActionResult<ClientLibraryReadDto>> LoadClientById(int idClient)
         {
-            var theClient= _beautyBaseRepos.ClientRepository.GetClientById(id);
+            string connectionString = _configuration["ConnectionStrings:BeautyConnection"];
+
+            var theClient= await _connectivityDataRepos.GetClientByIdClient(connectionString, idClient);
 
             if (theClient != null)
             {
-                return Ok(_mapper.Map<ClientReadDto>(theClient));
+                return Ok(_mapper.Map<ClientLibraryReadDto>(theClient));
             }
 
             return NotFound(); // Else
@@ -74,83 +64,84 @@ namespace BeautyWebAPI.Controllers
         }
 
 
-        [HttpGet("bycelphone/{celphone}")]
-        public ActionResult<ClientReadDto> LoadClientByCelClient(string celphone)
+        [HttpGet("bycelphone/{idCompany}/{celphone}")]
+        public async Task<ActionResult<ClientLibraryReadDto>> LoadClientByCelClient(int idCompany, string celphone)
         {
-            var theClient = _beautyBaseRepos.ClientRepository.GetClientByCelClient(celphone);
+            string connectionString = _configuration["ConnectionStrings:BeautyConnection"];
 
-
-            if (theClient != null)
-            {
-                return Ok(_mapper.Map<ClientReadDto>(theClient));
-            }
-
-            return NotFound(); // Else
-
-        }
-        
-        
-        [HttpGet("bylnameandphone/{lastName}/{celphone}")] //[HttpGet("{id}/{first}/{second}")]
-        public ActionResult<ClientReadDto> LoadClientByLastNameAndCelNumber(string lastName, string celphone)
-        {
-            var theClient = _beautyBaseRepos.ClientRepository.GetClientByLastNameAndCelClient(lastName, celphone);
+            var theClient = await _connectivityDataRepos.GetClientByCelClient(connectionString, idCompany, celphone);
 
 
             if (theClient != null)
             {
-                return Ok(_mapper.Map<ClientReadDto>(theClient));
+                return Ok(_mapper.Map<ClientLibraryReadDto>(theClient));
             }
 
             return NotFound(); // Else
-
         }
         
-
-        /*
-        [HttpGet("{id}", Name = "SpLoadColorById")]
-        //[Route("spload")]
-        public ActionResult<ColorReadDto> SpLoadColorById(int id)
-        {
-            var theColor = _beautyBaseRepos.ColorRepository.StoreProcGetColorById(id);
-
-            if (theColor != null)
-            {
-                return Ok(_mapper.Map<ColorReadDto>(theColor));
-            }
-
-            return NotFound(); // Else
-
-        }
-        */
-
-
         
         
-
-
-
-
-        /*
-        //PUT   api/colors/{id}
-        [HttpPut("{id}")]
-        public ActionResult UpdateColor(int id, ColorUpdateDto colorUpdateDto)
+        
+        //PUT   api/client/{id}
+        [HttpPut("update/{id}")]
+        public async Task<ActionResult> UpdateClient(int id, ClientLibraryUpdateDto client)
         {
-            var colorModelFromRepo = _beautyBaseRepos.ColorRepository.GetColorById(id);
+            string connectionString = _configuration["ConnectionStrings:BeautyConnection"];
 
-            if (colorModelFromRepo == null)
+            var clientFound = await _connectivityDataRepos.GetClientByIdClient(connectionString, id); // Verify if the given client Id passed in exists
+
+            if (clientFound == null)
             {
                 return NotFound();
             }
 
-            _mapper.Map(colorUpdateDto, colorModelFromRepo);
+            ClientLibrary clientToUpdate = _mapper.Map<ClientLibrary>(client);
 
-            _beautyBaseRepos.ColorRepository.UpdateColor(colorModelFromRepo);
-
-            _beautyBaseRepos.SaveChanges();
+            await _connectivityDataRepos.UpdateClient(connectionString, id, clientToUpdate);
 
             return NoContent();
         }
 
+
+        //POST  api/users
+        /*
+        [HttpPost]
+        public ActionResult<ClientLibraryReadDto> CreateClient(ClientLibraryCreateDto clientCreateDto)
+        {
+            // Create client
+            clientCreateDto.IdUser = 2;//direct connect to fake id user client
+            var clientModel = _mapper.Map<ClientLibrary>(clientCreateDto);
+            _connectionLibraryBaseRepos.ClientRepository.CreateClient(clientModel);
+            _connectionLibraryBaseRepos.SaveChanges();
+
+            var clientReadDto = _mapper.Map<ClientLibraryReadDto>(clientModel);
+
+            return CreatedAtRoute(nameof(LoadClientById), new { Id = clientReadDto.IdClient }, clientReadDto);
+            //return Ok(colorReadDto);
+        }
+        */
+
+
+        /*
+        [HttpGet("bylnameandphone/{lastName}/{celphone}")] //[HttpGet("{id}/{first}/{second}")]
+        public ActionResult<ClientLibraryReadDto> LoadClientByLastNameAndCelNumber(string lastName, string celphone)
+        {
+            var theClient = _connectionLibraryBaseRepos.ClientRepository.GetClientByLastNameAndCelClient(lastName, celphone);
+
+
+            if (theClient != null)
+            {
+                return Ok(_mapper.Map<ClientLibraryReadDto>(theClient));
+            }
+
+            return NotFound(); // Else
+        }
+        */
+
+
+
+        /*
         //PATCH api/colors/{id}
         [HttpPatch("{id}")]
         public ActionResult PartialColorUpdate(int id, JsonPatchDocument<ColorUpdateDto> patchDoc)
@@ -178,23 +169,8 @@ namespace BeautyWebAPI.Controllers
 
             return NoContent();
         }
-
-        //DELETE api/color/{id}
-        [HttpDelete("{id}")]
-        public ActionResult DeleteColor(int id)
-        {
-            var colorModelFromRepo = _beautyBaseRepos.ColorRepository.GetColorById(id);
-            if (colorModelFromRepo == null)
-            {
-                return NotFound();
-            }
-            _beautyBaseRepos.ColorRepository.DeleteColor(colorModelFromRepo);
-
-            _beautyBaseRepos.SaveChanges();
-
-            return NoContent();
-        }
-
         */
+
+
     }
 }

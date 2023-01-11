@@ -18,6 +18,7 @@ namespace BeautyWebAPI.Data.Repositories
             _context = context;
         }
 
+        /*
         public void CreateDiscount(Discount discount)
         {
             if (discount == null)
@@ -54,5 +55,6 @@ namespace BeautyWebAPI.Data.Repositories
             }
             _context.Discounts.Update(discount);
         }
+        */
     }
 }

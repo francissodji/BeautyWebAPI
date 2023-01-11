@@ -12,7 +12,7 @@ namespace BeautyWebAPI.Profiles
     {
         public ExtratStyleProfile()
         {
-            CreateMap<ExtratStyle, ExtratStyleReadDto>();
+            //CreateMap<ExtratStyle, ExtratStyleReadDto>();
 
             //CreateMap<ExtratStyleCreateDto, ExtratStyle>();
 

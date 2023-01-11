@@ -1,4 +1,5 @@
-﻿using System;
+﻿//using ConnectionLibrary.Data.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,11 +8,15 @@ namespace BeautyWebAPI.Data.Interfaces
 {
     public interface IBeautyBaseRepository
     {
+        /*
         IUserRepository UserRepository { get; }
 
         IColorRepository ColorRepository { get; }
 
-        IClientRepository ClientRepository { get; }
+        ICompanyRepository CompanyRepository { get; }
+
+
+        //IClientRepository ClientRepository { get; }
 
         IDiscountRepository DiscountRepository { get; }
 
@@ -27,11 +32,12 @@ namespace BeautyWebAPI.Data.Interfaces
 
         IStateRepository StateRepository { get; }
 
-
-
+        //ICompanyRepository CompanyRepository { get; }
 
         bool SaveChanges();
 
         Task<bool> SaveAsync();
+
+        */
     }
 }

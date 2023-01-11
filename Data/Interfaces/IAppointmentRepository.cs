@@ -9,6 +9,7 @@ namespace BeautyWebAPI.Data.Interfaces
 {
     public interface IAppointmentRepository
     {
+        /*
         IEnumerable<Appointment> GetAllAppoint();
 
         Appointment GetAppointmentById(int id);
@@ -25,5 +26,6 @@ namespace BeautyWebAPI.Data.Interfaces
         void UpdateAppointment(Appointment appointment);
 
         void DeleteAppointment(Appointment appointment);
+        */
     }
 }

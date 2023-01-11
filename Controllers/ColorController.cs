@@ -15,7 +15,7 @@ namespace BeautyWebAPI.Controllers
 
     public class ColorController : BaseController
     {
-
+        /*
         private readonly IBeautyBaseRepository _beautyBaseRepos;
 
         private IMapper _mapper { get; } 
@@ -154,6 +154,8 @@ namespace BeautyWebAPI.Controllers
             return NoContent();
         }
 
-        
+        */
     }
+
+
 }

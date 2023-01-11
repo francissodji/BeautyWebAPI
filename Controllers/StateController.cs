@@ -25,7 +25,7 @@ namespace BeautyWebAPI.Controllers
         }
 
 
-
+        /*
         [HttpGet]
         public ActionResult<IEnumerable<StateReadDto>> LoadAllStates()
         {
@@ -33,5 +33,6 @@ namespace BeautyWebAPI.Controllers
 
             return Ok(_mapper.Map<IEnumerable<StateReadDto>>(listAllState));
         }
+        */
     }
 }

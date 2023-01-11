@@ -29,6 +29,7 @@ namespace BeautyWebAPI.Data.Repositories
             throw new NotImplementedException();
         }
 
+        /*
         public IEnumerable<ExtratStyle> GetAllExtratStyle()
         {
             return _context.ExtratStyles.ToList();
@@ -70,5 +71,7 @@ namespace BeautyWebAPI.Data.Repositories
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

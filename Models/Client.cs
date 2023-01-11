@@ -41,13 +41,13 @@ namespace BeautyWebAPI.Models
 
 
         [MaxLength(150)]
-        public string? StreetClient { get; set; }
+        public string StreetClient { get; set; }
 
         [MaxLength(75)]
-        public string? CountyClient { get; set; }
+        public string CountyClient { get; set; }
 
         [MaxLength(10)]
-        public string? ZipCodeClient { get; set; }
+        public string ZipCodeClient { get; set; }
 
         [MaxLength(100)]
         public string? EmailClient { get; set; }

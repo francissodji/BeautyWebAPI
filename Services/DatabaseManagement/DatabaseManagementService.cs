@@ -16,7 +16,7 @@ namespace BeautyWebAPI.Services.DatabaseManagement
         {
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                serviceScope.ServiceProvider.GetService<BeautyDataContext>().Database.Migrate();
+                //serviceScope.ServiceProvider.GetService<BeautyDataContext>().Database.Migrate();
             }
         }
     }

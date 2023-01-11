@@ -18,12 +18,13 @@ namespace BeautyWebAPI.Data.Repositories
             _context = context;
         }
 
-        public void CreateExtrat(Extrat extrat)
+        /*
+        public void CreateExtrat(Length extrat)
         {
             _context.Extrats.Add(extrat);
         }
 
-        public void DeleteExtrat(Extrat extrat)
+        public void DeleteExtrat(Length extrat)
         {
             if (extrat == null)
             {
@@ -33,12 +34,12 @@ namespace BeautyWebAPI.Data.Repositories
             _context.Extrats.Remove(extrat);
         }
 
-        public IEnumerable<Extrat> GetAllExtrat()
+        public IEnumerable<Length> GetAllExtrat()
         {
             return _context.Extrats.ToList();
         }
 
-        public IEnumerable<Extrat> GetAllExtratByStyleAndSize(int IdStyle, int IdSize)
+        public IEnumerable<Length> GetAllExtratByStyleAndSize(int IdStyle, int IdSize)
         {
             string storedProc = "EXEC dbo.SpExtratGetLengthPerStyleAndSize " +
                                 "@IdStyle = " + IdStyle + ", " +
@@ -50,12 +51,12 @@ namespace BeautyWebAPI.Data.Repositories
 
 
 
-        public Extrat GetExtratById(int id)
+        public Length GetExtratById(int id)
         {
             return _context.Extrats.FirstOrDefault(e => e.IdExtrat == id);
         }
 
-        public void UpdateExtrat(Extrat extrat)
+        public void UpdateExtrat(Length extrat)
         {
             if (extrat == null)
             {
@@ -64,6 +65,8 @@ namespace BeautyWebAPI.Data.Repositories
 
             _context.Extrats.Update(extrat);
         }
+
+        */
 
     }
 }

@@ -21,7 +21,7 @@ namespace BeautyWebAPI.Models
         [Required]
         public int IDExtrat { get; set; }
 
-        public Extrat Extrat { get; set; }
+        public Length Extrat { get; set; }
 
 
         [Required]
@@ -30,9 +30,13 @@ namespace BeautyWebAPI.Models
         public Size Size { get; set; }
 
         public double CostExtra { get; set; }
+
         public double CostTouchUpExtra { get; set; }
+
         public double CostExtraSize { get; set; }
+
         public double CostBusyExtra { get; set; }
+
         public double CostHairDeductExtra { get; set; }
     }
 }

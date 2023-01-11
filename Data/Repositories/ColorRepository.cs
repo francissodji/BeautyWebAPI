@@ -19,7 +19,7 @@ namespace BeautyWebAPI.Data.Repositories
         }
 
 
-
+        /*
         public IEnumerable<Color> GetAllColor()
         {
             return _context.Colors.ToList();
@@ -65,5 +65,7 @@ namespace BeautyWebAPI.Data.Repositories
             return _context.Colors.FromSqlRaw("EXEC dbo.SpColorGetColorById @IdColor =" + id)
                 .ToList().FirstOrDefault();
         }
+
+        */
     }
 }

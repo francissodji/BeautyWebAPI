@@ -1,32 +1,42 @@
 ﻿using BeautyWebAPI.Data.Context;
 using BeautyWebAPI.Data.Interfaces;
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace BeautyWebAPI.Data.Repositories
 {
     public class BeautyBaseRepository : IBeautyBaseRepository
     {
-
+        /*
         private readonly BeautyDataContext _context;
+        private readonly ConnectionLibraryDataContext _connContext;
 
-        public BeautyBaseRepository(BeautyDataContext context)
+        public BeautyBaseRepository(BeautyDataContext context, ConnectionLibraryDataContext connContext)
         {
             _context = context;
+            _connContext = connContext;
         }
 
 
         public IUserRepository UserRepository => 
-            new UserRepository(_context);
+            new UserRepository(_connContext);
+
+
+        public ICompanyRepository CompanyRepository =>
+           new CompanyRepository(_connContext);
+
 
         public IColorRepository ColorRepository =>
             new ColorRepository(_context);
 
 
-        public IClientRepository ClientRepository =>
-            new ClientRepository(_context);
+        //public IClientRepository ClientRepository =>
+         //   new ClientRepository(_context);
 
         public IDiscountRepository DiscountRepository =>
             new DiscountRepository(_context);
@@ -61,5 +71,7 @@ namespace BeautyWebAPI.Data.Repositories
             return await _context.SaveChangesAsync() >= 0;
         }
         //public IUserRepository userRepository => throw new NotImplementedException();
+        */
+        
     }
 }

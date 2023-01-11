@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BeautyWebAPI.Data.Interfaces
 {
     public interface IClientRepository
-    {
+    {/*
         IEnumerable<Client> GetAllClients();
 
         IEnumerable<Client> GetAllClientByFirstNameLike(string namelike);
@@ -26,6 +26,6 @@ namespace BeautyWebAPI.Data.Interfaces
         Client GetClientByCelClient(string celClient);
 
         Client GetClientByLastNameAndCelClient(string lastNameClient, string celClient);
-
+        */
     }
 }

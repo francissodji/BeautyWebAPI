@@ -8,18 +8,21 @@ namespace BeautyWebAPI.Data.Interfaces
 {
     public interface IExtratRepository
     {
-        IEnumerable<Extrat> GetAllExtrat();
+        /*
+        IEnumerable<Length> GetAllExtrat();
 
 
-        IEnumerable<Extrat> GetAllExtratByStyleAndSize(int IdStyle, int IdSize);
+        IEnumerable<Length> GetAllExtratByStyleAndSize(int IdStyle, int IdSize);
         
 
-        Extrat GetExtratById(int id);
+        Length GetExtratById(int id);
 
-        void CreateExtrat(Extrat extrat);
+        void CreateExtrat(Length extrat);
 
-        void UpdateExtrat(Extrat extrat);
+        void UpdateExtrat(Length extrat);
 
-        void DeleteExtrat(Extrat extrat);
+        void DeleteExtrat(Length extrat);
+
+        */
     }
 }

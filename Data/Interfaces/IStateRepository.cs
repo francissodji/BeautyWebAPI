@@ -8,6 +8,6 @@ namespace BeautyWebAPI.Data.Interfaces
 {
     public interface IStateRepository
     {
-        IEnumerable<State> GetAllState();
+        //IEnumerable<State> GetAllState();
     }
 }

@@ -42,7 +42,7 @@ namespace BeautyWebAPI.Models
 
             //Length
         public int IDLenghtAppoint { get; set; }
-        public Extrat length { get; set; }
+        public Length length { get; set; }
 
         //Size
         public int IdSizeAppoint { get; set; }

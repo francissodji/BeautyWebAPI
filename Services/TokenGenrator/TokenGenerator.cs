@@ -1,40 +1,82 @@
-﻿using System;
+﻿using BeautyWebAPI.Models;
+using ConnectivityLibrary.Dtos;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Threading.Tasks;
-using BeautyWebAPI.Models;
-using System.Text;
-
-using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-
-
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BeautyWebAPI.Services.TokenGenrator
 {
     public class TokenGenerator
     {
-        private string CreateToken(User user)
-        {
-            var jwtTokenHandler = new JwtSecurityTokenHandler();
-            var Secret = "1qFXYlTI9SqTuT0m_PnvQmOxyUgsKM3D_2E4_uBSj_QpxQ2D3itJdeIlnArie6AtziFC_k2qmPEK6IaUr6tcbBgrWwc_-oWvfmHBTTcZgSsoKN3NT9I26E6Hf9MPlweWLvEpnIilAwEVbLB254lxsyRy-zexGdQFtmJ-C3xeD5s";
-            var key = Encoding.ASCII.GetBytes(Secret);
-            var identity = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.IDUser.ToString())
-                });
-            var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+       private readonly IConfiguration _configuration;
+        public TokenGenerator(IConfiguration configuration)
+        { 
+            _configuration = configuration;
+        }
+        
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+        public string GenerateToken(string secreteKey, string theIssuer, string theAudience, UserLibraryReadDto user)
+        {
+            /*
+            string secreteKey = _configuration["JWT:Secret"];
+            string theIssuer = _configuration["JWT:ValidIssuer"];
+            string theAudience = _configuration["JWT:ValidAudience"];
+            */
+
+            SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secreteKey));
+            SigningCredentials credential = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            List<Claim> theClaims = new List<Claim>()
             {
-                Subject = identity,
-                Expires = DateTime.Now.AddMinutes(120),
-                SigningCredentials = credentials
+
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.IdUser.ToString())
             };
 
-            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
-            return jwtTokenHandler.WriteToken(token);
+            JwtSecurityToken token = new JwtSecurityToken(
+                issuer:     theIssuer,
+                audience:   theAudience,
+                claims:     theClaims,
+                notBefore:  DateTime.UtcNow,
+                expires:    DateTime.UtcNow.AddMinutes(30),
+                signingCredentials: credential);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public bool IsTokenValid(string secreteKey, string theIssuer, string theAudience, string token)
+        {
+
+            SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secreteKey));
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            try
+            {
+                tokenHandler.ValidateToken(token,
+                new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidAudience = theAudience,
+                    ValidIssuer = theIssuer,
+                    IssuerSigningKey = key
+                }, out SecurityToken validatedToken);
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
